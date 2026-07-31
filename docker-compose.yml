@@ -1,0 +1,13 @@
+services:
+  api:
+    image: viridarium-api
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: viridarium-api
+    env_file: api/.env
+    environment:
+      PORT: 8700
+    ports:
+      - "8700:8700"
+    profiles: ["optional"]

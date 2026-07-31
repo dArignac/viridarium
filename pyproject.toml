@@ -1,0 +1,13 @@
+[project]
+name = "viridarium"
+version = "0.1.0"
+description = "A gardening helper"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["viridarium_api"]
+
+[tool.uv.sources]
+viridarium-api = { workspace = true }
+
+[tool.uv.workspace]
+members = ["api"]
