@@ -1,4 +1,4 @@
-# Copilot Instructions - Viridarium
+# Agent Instructions - Viridarium
 
 ## Repository Context
 
