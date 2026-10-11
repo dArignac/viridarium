@@ -2,21 +2,7 @@
 
 ## Repository Context
 
-- Project name is `viridarium`.
-- Architecture is incrementally built service-by-service.
-- Current active service is FastAPI backend API in `api/`.
-- Current developer startup path for backend (from repo root) is:
-
-```bash
-uv sync
-uv run fastapi dev --port 8700
-```
-
-- Optional containerized startup path for backend is:
-
-```bash
-docker compose --profile optional up --build api
-```
+To be done
 
 ## Documentation Requirements
 
