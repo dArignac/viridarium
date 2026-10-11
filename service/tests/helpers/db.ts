@@ -1,0 +1,20 @@
+import { createClient } from "@libsql/client";
+import { drizzle } from "drizzle-orm/libsql";
+import { migrate } from "drizzle-orm/libsql/migrator";
+import path from "node:path";
+import * as authSchema from "@/src/db/schema/auth";
+
+export async function createTestDb() {
+  const client = createClient({ url: ":memory:" });
+  const db = drizzle(client, {
+    schema: {
+      ...authSchema,
+    },
+  });
+
+  // Apply migrations
+  const migrationsFolder = path.resolve(__dirname, "../../src/db/migrations");
+  await migrate(db, { migrationsFolder });
+
+  return { client, db };
+}

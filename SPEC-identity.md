@@ -11,7 +11,7 @@ Establish instance bootstrap, user authentication, optional TOTP two-factor auth
 
 ## Tech Stack
 - Runtime & Framework: Next.js 16 (App Router, Node.js runtime), React 19, TypeScript
-- Database & ORM: SQLite via `better-sqlite3`, `drizzle-orm`, `drizzle-kit`
+- Database & ORM: SQLite via `@libsql/client`, `drizzle-orm`, `drizzle-kit`
 - Auth & Crypto: `@node-rs/argon2` (passwords), `jose` (session tokens), `otplib` & `qrcode` (TOTP 2FA)
 - Validation & Testing: `zod`, `vitest` (server integration/unit), `@playwright/test` (browser integration/E2E)
 

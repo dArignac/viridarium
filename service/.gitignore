@@ -37,7 +37,11 @@ yarn-error.log*
 .vercel
 
 # typescript
-*.tsbuildinfo
-next-env.d.ts
-
 certificates
+
+# sqlite & test artifacts
+data/
+test-results/
+playwright-report/
+
+_agent-next.txt

@@ -1,26 +1,43 @@
 {
-  "name": "frontend",
+  "name": "viridarium",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "@node-rs/argon2": "^2.2.2",
+    "dotenv": "^18.0.7",
+    "drizzle-orm": "^0.45.4",
+    "jose": "^6.2.12",
     "next": "16.4.0",
+    "otplib": "^13.5.0",
+    "qrcode": "^1.5.4",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.6.4",
+    "@types/qrcode": "^1.5.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "drizzle-kit": "^0.31.9",
     "eslint": "^10.12.0",
     "eslint-config-next": "16.4.0",
     "tailwindcss": "^4.3.3",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3",
+    "vitest": "^3.1.2"
   }
 }
