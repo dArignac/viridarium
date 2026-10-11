@@ -61,19 +61,22 @@ export default async function HomePage() {
                 </p>
               </a>
 
-              <div className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
+              <a
+                href="/inventory"
+                className="block p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500 transition group"
+              >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-semibold">
+                  <span className="text-sm font-semibold group-hover:text-emerald-600 transition">
                     Garden Inventory
                   </span>
                   <span className="text-xs font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-full">
-                    Next Slice
+                    Active
                   </span>
                 </div>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                  Sections, 2D grids, and botanical inventory arriving in Module 2.
+                  Sections, 2D grids, landmarks, and botanical inventory.
                 </p>
-              </div>
+              </a>
             </div>
           </div>
         </main>

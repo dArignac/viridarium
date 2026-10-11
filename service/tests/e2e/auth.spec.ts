@@ -1,4 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
+import { createClient } from "@libsql/client";
+import path from "node:path";
 import { generateSync } from "otplib";
 
 test.describe.serial("Full-Stack Identity & Auth E2E Flow", () => {
@@ -8,6 +10,9 @@ test.describe.serial("Full-Stack Identity & Auth E2E Flow", () => {
   let totpSecret = "";
 
   test.beforeAll(async ({ browser }) => {
+    const dbUrl = `file:${path.resolve(__dirname, "../../data/e2e-test.db")}`;
+    const client = createClient({ url: dbUrl });
+    await client.execute("DELETE FROM users");
     page = await browser.newPage();
   });
 

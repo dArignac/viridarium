@@ -31,6 +31,16 @@ flowchart LR
     Drizzle --> DB[(SQLite Database /app/data/viridarium.db)]
 ```
 
+## Module Status & Domain Landscape
+
+| Module | Status | Responsibility | Primary Entities |
+|---|---|---|---|
+| `identity` | Active | Instance bootstrap, Argon2id auth, TOTP 2FA, 30-day sessions | `users` |
+| `garden-inventory` | Active | 2D section grids, non-plant landmarks, botanical registry, coordinates | `sections`, `landmarks`, `plants`, `placements` |
+| `garden-events` | Planned | Append-only care events (`WATER`, `PESTICIDE`, `PRUNE`) | `events` |
+| `care-engine` | Planned | Projections of care states (hydration countdown, safety lockouts) | In-memory projections |
+| `cockpit-ui` | Planned | Mobile dashboard with 1-tap zone batching | UI views |
+
 ## Runtime Connections
 
 1. Client interacts with mobile-responsive Next.js interface.
@@ -40,4 +50,5 @@ flowchart LR
 ## Testing Architecture
 
 - **Tier 1 (Server Integration & Unit):** Vitest executes in-process against `:memory:` SQLite for business logic, cryptography, and queries.
-- **Tier 2 (Browser Integration & E2E):** Playwright executes user journeys on mobile viewports (Chromium, WebKit) against a running Next.js instance.
+- **Tier 2 (Browser Integration & E2E):** Playwright executes user journeys on mobile viewports (Chromium) against a running Next.js instance.
+

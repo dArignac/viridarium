@@ -1,43 +1,38 @@
-# Task List: identity Module
+# Task List: garden-inventory Module
 
-Ordered implementation tasks for the identity module in `service/`.
+Ordered implementation tasks for the garden-inventory module in `service/`.
 
-- [x] Task 1: Setup Dependencies and Test Harness
-  - Acceptance: Runtime and dev dependencies installed; Vitest and Playwright configured; in-memory SQLite test helper ready.
-  - Verify: `pnpm test` executes without errors.
-  - Files: `service/package.json`, `service/vitest.config.ts`, `service/tests/helpers/db.ts`
+- [x] Task 1: Inventory Schema & Migrations
+  - Acceptance: Tables `sections`, `landmarks`, `plants`, `placements` defined with foreign keys and unique constraints; migrations generate cleanly.
+  - Verify: `pnpm db:generate` and in-memory schema tests pass.
+  - Files: `service/src/db/schema/inventory.ts`, `service/src/db/index.ts`, `service/tests/unit/inventory/schema.test.ts`
 
-- [x] Task 2: Define Auth Database Schema and Migrations
-  - Acceptance: Drizzle schema defines `users` (with TOTP fields) and `sessions`; migrations generate cleanly.
-  - Verify: `pnpm db:generate` succeeds and in-memory schema initializes in tests.
-  - Files: `service/src/db/index.ts`, `service/src/db/schema/auth.ts`, `service/drizzle.config.ts`
+- [x] Task 2: Inventory Zod Schemas & Scoped Queries
+  - Acceptance: Zod validation schemas for all entities; queries strictly filter by `userId` and fetch full grid state.
+  - Verify: `pnpm test tests/unit/inventory/queries.test.ts`
+  - Files: `service/src/lib/inventory/schemas.ts`, `service/src/lib/inventory/queries.ts`, `service/tests/unit/inventory/queries.test.ts`
 
-- [x] Task 3: Implement Password Hashing & Strength Validation
-  - Acceptance: Zod schema enforces 12+ chars with uppercase, lowercase, number, and symbol; Argon2id hashing and verification work reliably.
-  - Verify: `pnpm test tests/unit/password.test.ts`
-  - Files: `service/src/lib/auth/password.ts`, `service/tests/unit/password.test.ts`
+- [x] Task 3: Inventory Server Actions
+  - Acceptance: Server actions handle section CRUD, landmark CRUD, plant CRUD, and placement/removal with grid coordinate boundary checks (`0 <= x < width`).
+  - Verify: `pnpm test tests/unit/inventory/actions.test.ts`
+  - Files: `service/src/lib/inventory/actions.ts`, `service/tests/unit/inventory/actions.test.ts`
 
-- [x] Task 4: Implement TOTP 2FA and Session Handling
-  - Acceptance: TOTP secrets and QR data URLs generated; token validation passes RFC 6238 checks; Jose encrypted session cookies support 30-day sliding refresh.
-  - Verify: `pnpm test tests/unit/totp.test.ts` and `pnpm test tests/unit/session.test.ts`
-  - Files: `service/src/lib/auth/totp.ts`, `service/src/lib/auth/session.ts`, `service/tests/unit/totp.test.ts`, `service/tests/unit/session.test.ts`
+- [x] Task 4: Interactive 2D Grid Component
+  - Acceptance: Responsive mobile touch grid renders coordinate cells, landmark shapes (rectangles, circles with labels), and plant markers; supports tap-to-select cell.
+  - Verify: Component compiles with 0 errors in Next.js build.
+  - Files: `service/src/components/inventory/section-grid.tsx`
 
-- [x] Task 5: Implement Auth Guards & Tenant Isolation
-  - Acceptance: `requireUser()` and `requireAdmin()` return authenticated caller context or redirect/throw; isolates user data queries.
-  - Verify: `pnpm test tests/unit/guard.test.ts`
-  - Files: `service/src/lib/auth/guard.ts`, `service/tests/unit/guard.test.ts`
+- [x] Task 5: Botanical Plant Registry Page
+  - Acceptance: `/inventory/plants` displays list of all user plants with watering intervals, pruning calendar badges, and creation modal.
+  - Verify: `pnpm build` passes with zero errors.
+  - Files: `service/app/(dashboard)/inventory/plants/page.tsx`, `service/app/(dashboard)/inventory/plants/plant-form-modal.tsx`
 
-- [x] Task 6: Implement Auth Server Actions
-  - Acceptance: Server actions handle setup (blocks when users exist), credentials login, 2FA challenge, 2FA enable/disable, and logout.
-  - Verify: `pnpm test tests/unit/actions.test.ts`
-  - Files: `service/src/lib/auth/actions.ts`, `service/tests/unit/actions.test.ts`
+- [x] Task 6: Section Grid Viewer & Placement Page
+  - Acceptance: `/inventory` provides section switcher, landmark addition, cell selection drawer, and plant placement flow; navigation linked from home cockpit.
+  - Verify: `pnpm build` and `pnpm lint` pass with zero errors.
+  - Files: `service/app/(dashboard)/inventory/page.tsx`, `service/app/(dashboard)/inventory/section-manager.tsx`, `service/app/page.tsx`
 
-- [x] Task 7: Build Mobile-Optimized Auth UI Pages
-  - Acceptance: Responsive mobile UI for `/setup`, `/login`, `/login/2fa`, and `/settings/2fa` with password strength indicator and QR code display.
-  - Verify: `pnpm build` completes with zero TypeScript or lint errors.
-  - Files: `service/app/(auth)/setup/page.tsx`, `service/app/(auth)/login/page.tsx`, `service/app/(auth)/login/2fa/page.tsx`, `service/app/(dashboard)/settings/2fa/page.tsx`
-
-- [x] Task 8: Implement Playwright Mobile E2E Integration Suite
-  - Acceptance: Headless mobile browser E2E test passes complete flow: setup $\rightarrow$ login $\rightarrow$ 2FA activation $\rightarrow$ 2FA login $\rightarrow$ session persistence.
-  - Verify: `pnpm test:e2e` passes green.
-  - Files: `service/playwright.config.ts`, `service/tests/e2e/auth.spec.ts`
+- [x] Task 7: Playwright Mobile E2E Test Suite for Inventory
+  - Acceptance: Mobile browser test verifies: section creation $\rightarrow$ landmark creation $\rightarrow$ plant creation $\rightarrow$ grid placement $\rightarrow$ tenant isolation.
+  - Verify: `pnpm test:e2e tests/e2e/inventory.spec.ts` passes green on mobile viewport.
+  - Files: `service/tests/e2e/inventory.spec.ts`
